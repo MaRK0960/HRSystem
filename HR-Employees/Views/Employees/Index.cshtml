@@ -55,6 +55,7 @@
                 @Html.DisplayFor(modelItem => item.Manager.Name)
             </td>
             <td>
+                <a asp-controller="Logs" asp-action="Index" asp-route-id="@item.ID">Logs</a> |
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
             </td>

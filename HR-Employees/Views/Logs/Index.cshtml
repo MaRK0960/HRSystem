@@ -1,0 +1,51 @@
+﻿@model IEnumerable<HR_Employees.Models.BusinessModels.DayLog>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.EmployeeName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.SignIn)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.SignOut)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.TimeWorked)
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr class="@(item.TimeWorked.TotalHours < 8 ? "bg-warning" : "")">
+				<td>
+					@Html.DisplayFor(modelItem => item.EmployeeName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.SignIn)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.SignOut)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.TimeWorked)
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+<div>
+	<a asp-controller="Employees"
+	   asp-action="Index">
+		Employees
+	</a>
+</div>
