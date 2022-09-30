@@ -5,30 +5,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HR_Employees.Controllers
 {
-    public class LogsController : Controller
-    {
-        private readonly HRContext _context;
+	public class LogsController : Controller
+	{
+		private readonly HRContext _context;
 
-        public LogsController(HRContext context)
-        {
-            _context = context;
-        }
+		public LogsController(HRContext context)
+		{
+			_context = context;
+		}
 
-        public async Task<IActionResult> Index(int id)
-        {
-            var hRContext =
-                _context.Logs.
-                Where(l => l.EmployeeID == id)
-                .GroupBy(l => l.DateTime.Date)
-                .Where(g => g.Any(l => l.IsIn) && g.Any(l => !l.IsIn))
-                .Select(g => new DayLog()
-                {
-                    EmployeeName = g.First().Employee.Name,
-                    SignIn = g.Where(l => l.IsIn).OrderBy(l => l.DateTime).First().DateTime,
-                    SignOut = g.Where(l => !l.IsIn).OrderBy(l => l.DateTime).Last().DateTime,
-                });
+		public async Task<IActionResult> Index(int id)
+		{
+			var hRContext =
+				_context.Logs.
+				Where(l => l.EmployeeID == id)
+				.GroupBy(l => l.DateTime.Date)
+				.Where(g => g.Any(l => l.IsIn) && g.Any(l => !l.IsIn))
+				.Select(g => new DayLog()
+				{
+					EmployeeName = g.First().Employee.Name,
+					SignIn = g.Where(l => l.IsIn).OrderBy(l => l.DateTime).First().DateTime,
+					SignOut = g.Where(l => !l.IsIn).OrderBy(l => l.DateTime).Last().DateTime,
+				});
 
-            return View(await hRContext.ToListAsync());
-        }
-    }
+			return View(await hRContext.ToListAsync());
+		}
+	}
 }
