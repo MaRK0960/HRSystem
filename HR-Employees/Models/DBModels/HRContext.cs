@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HR_Employees.Models.DBModels.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace HR_Employees.Models.DBModels
 {

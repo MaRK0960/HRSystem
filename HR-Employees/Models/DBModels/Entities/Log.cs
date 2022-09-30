@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HR_Employees.Models.DBModels
+namespace HR_Employees.Models.DBModels.Entities
 {
     public class Log
     {

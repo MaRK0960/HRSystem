@@ -35,6 +35,7 @@ namespace HR_Employees
                 HRContext context = serviceProvider.GetRequiredService<HRContext>();
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
+                DbInitializer.Initialize(context);
             }
 
             app.UseStaticFiles();
