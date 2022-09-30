@@ -8,7 +8,6 @@ namespace HR_Employees.Models.DBModels
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
 
-        [ForeignKey(nameof(Manager))]
         public int? ManagerID { get; set; }
 
         [Required]
@@ -22,10 +21,11 @@ namespace HR_Employees.Models.DBModels
         [Required]
         public string Email { get; set; }
 
-        public int Mobile { get; set; }
+        [Required]
+        public string Mobile { get; set; }
 
         public virtual Employee Manager { get; set; }
 
-        public ICollection<Log> Logs { get; set; }
+        public virtual ICollection<Log> Logs { get; set; }
     }
 }

@@ -14,8 +14,15 @@ namespace HR_Employees.Models.DBModels
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>()
-                .HasCheckConstraint("CK_Employee_ManagerID", $"{nameof(Employee.ID)} != {nameof(Employee.ManagerID)}")
                 .ToTable("Employees");
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.Manager)
+                .WithMany()
+                .HasForeignKey(e => e.ManagerID);
+
+            modelBuilder.Entity<Employee>()
+                .HasCheckConstraint("CK_Employee_ManagerID", $"{nameof(Employee.ID)} != {nameof(Employee.ManagerID)}");
 
             modelBuilder.Entity<Employee>()
                 .HasIndex(e => e.Name);
@@ -26,6 +33,11 @@ namespace HR_Employees.Models.DBModels
 
             modelBuilder.Entity<Log>()
                 .ToTable("Logs");
+
+            modelBuilder.Entity<Log>()
+                .HasOne(l => l.Employee)
+                .WithMany(e => e.Logs)
+                .HasForeignKey(l => l.EmployeeID);
 
             modelBuilder.Entity<Log>()
                 .HasIndex(l => l.EmployeeID);

@@ -8,7 +8,6 @@ namespace HR_Employees.Models.DBModels
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int LogID { get; set; }
 
-        [ForeignKey(nameof(Employee))]
         public int EmployeeID { get; set; }
 
         public DateTime DateTime { get; set; }
