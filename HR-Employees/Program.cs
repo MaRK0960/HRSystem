@@ -9,7 +9,6 @@ namespace HR_Employees
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
-			// Add services to the container.
 			builder.Services.AddControllersWithViews();
 
 			builder.Services.AddDbContext<HRContext>(o =>
@@ -19,7 +18,6 @@ namespace HR_Employees
 
 			var app = builder.Build();
 
-			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -29,13 +27,14 @@ namespace HR_Employees
 				app.UseExceptionHandler("/Home/Error");
 			}
 
+			//comment this block if you want to preserve database (schema + data)
 			using (IServiceScope serviceScope = app.Services.CreateScope())
 			{
 				IServiceProvider serviceProvider = serviceScope.ServiceProvider;
 				HRContext context = serviceProvider.GetRequiredService<HRContext>();
-				context.Database.EnsureDeleted();
-				context.Database.EnsureCreated();
-				DbInitializer.Initialize(context);
+				context.Database.EnsureDeleted();//deletes database
+				context.Database.EnsureCreated();//creates database
+				DbInitializer.CreateSampleData(context);//adds some data in database
 			}
 
 			app.UseStaticFiles();

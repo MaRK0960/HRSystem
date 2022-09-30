@@ -18,10 +18,10 @@ namespace HR_Employees.Controllers
 		{
 			var hRContext =
 				_context.Logs.
-				Where(l => l.EmployeeID == id)
-				.GroupBy(l => l.DateTime.Date)
-				.Where(g => g.Any(l => l.IsIn) && g.Any(l => !l.IsIn))
-				.Select(g => new DayLog()
+				Where(l => l.EmployeeID == id) // get onlt employee logs
+				.GroupBy(l => l.DateTime.Date) // group by date
+				.Where(g => g.Any(l => l.IsIn) && g.Any(l => !l.IsIn)) // remove bad logs (only in or only out)
+				.Select(g => new DayLog() // transform to more readable format
 				{
 					EmployeeName = g.First().Employee.Name,
 					SignIn = g.Where(l => l.IsIn).OrderBy(l => l.DateTime).First().DateTime,

@@ -4,7 +4,7 @@ namespace HR_Employees.Models.DBModels
 {
 	public static class DbInitializer
 	{
-		public static void Initialize(HRContext context)
+		public static void CreateSampleData(HRContext context)
 		{
 			Employee[] employees = new Employee[]
 			{
