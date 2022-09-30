@@ -14,10 +14,23 @@ namespace HR_Employees.Controllers
 			_context = context;
 		}
 
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int? employeeID, string employeeName, int? managerID, string managerName)
 		{
-			var hRContext = _context.Employees.Include(e => e.Manager);
-			return View(await hRContext.ToListAsync());
+			IQueryable<Employee> employees = _context.Employees.Include(e => e.Manager);
+
+			if (employeeID.HasValue)
+				employees = employees.Where(e => e.ID == employeeID.Value);
+
+			if (!string.IsNullOrEmpty(employeeName) && !string.IsNullOrWhiteSpace(employeeName))
+				employees = employees.Where(e => e.Name == employeeName);
+
+			if (managerID.HasValue)
+				employees = employees.Where(e => e.ManagerID == managerID.Value);
+
+			if (!string.IsNullOrEmpty(managerName) && !string.IsNullOrWhiteSpace(managerName))
+				employees = employees.Where(e => e.Manager.Name == managerName);
+
+			return View(await employees.ToListAsync());
 		}
 
 		public IActionResult Create()
