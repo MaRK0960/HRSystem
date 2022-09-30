@@ -75,8 +75,8 @@ namespace HR_Employees.Models.DBModels
 					DateTime login = day.AddHours(random.Next(7, 9)).AddMinutes(random.Next(0, 59));
 					DateTime logout = day.AddHours(random.Next(15, 16)).AddMinutes(random.Next(0, 59));
 
-					logs.Add(new() { EmployeeID = employeeID, DateTime = login });
-					logs.Add(new() { EmployeeID = employeeID, DateTime = logout });
+					logs.Add(new() { EmployeeID = employeeID, DateTime = login, IsIn = true });
+					logs.Add(new() { EmployeeID = employeeID, DateTime = logout, IsIn = false });
 				}
 			}
 

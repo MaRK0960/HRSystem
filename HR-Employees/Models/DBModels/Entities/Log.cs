@@ -12,6 +12,8 @@ namespace HR_Employees.Models.DBModels.Entities
 
 		public DateTime DateTime { get; set; }
 
+		public bool IsIn { get; set; }
+
 		public virtual Employee Employee { get; set; }
 	}
 }
